@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderRequestDto {
+public class OrderDto {
     @JsonProperty("order_id")
     private UUID orderId;
     private Integer amount;

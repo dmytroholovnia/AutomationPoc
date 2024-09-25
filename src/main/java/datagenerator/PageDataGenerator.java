@@ -1,7 +1,7 @@
 package datagenerator;
 
 import dto.createpage.CreatePageRequestDto;
-import dto.createpage.OrderRequestDto;
+import dto.createpage.OrderDto;
 import dto.createpage.PageCustomizationRequestDto;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -14,7 +14,7 @@ public class PageDataGenerator {
 
     public static CreatePageRequestDto generateDto() {
         return CreatePageRequestDto.builder()
-                .order(OrderRequestDto.builder()
+                .order(OrderDto.builder()
                         .orderId(UUID.randomUUID())
                         .amount(Integer.valueOf(RandomStringUtils.randomNumeric(3)))
                         .currency(USD)
