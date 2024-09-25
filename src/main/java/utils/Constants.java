@@ -1,3 +1,5 @@
+package utils;
+
 public class Constants {
 
     public static final String PUBLIC_API_KEY = "api_pk_423f18b5_3e89_4024_958b_5bde0e2c7fc2";
