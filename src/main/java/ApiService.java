@@ -32,8 +32,8 @@ public class ApiService {
 
     public StatusResponseDto getStatus(StatusRequestDto requestDto) {
         return getSpecification(requestDto)
-                .baseUri("https://pay.solidgate.com/api/v1/status")
-//                .basePath(STATUS)
+                .baseUri(PAYMENT_URI)
+                .basePath(STATUS)
                 .log().all()
                 .when()
                 .post()
@@ -57,16 +57,5 @@ public class ApiService {
                 .contentType(ContentType.JSON)
                 .body(JsonUtils.toJson(object));
     }
-
-//    public ResponseSpecification getResponseSpecification() {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//
-//        return RestAssured
-//                .with()
-//                .config(RestAssured.config()
-//                        .objectMapperConfig(ObjectMapperConfig.objectMapperConfig()
-//                                .defaultObjectMapper()));
-//    }
 
 }
