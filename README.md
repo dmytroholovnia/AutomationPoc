@@ -2,8 +2,7 @@
 
 ## Overview
 This project is an Automation Quality Assurance (QA) framework built using Java 17, Maven, Junit5. 
-It leverages Selenium for UI testing, along with JUnit for test management and reporting. 
-The framework is designed to facilitate automated testing of web applications.
+It leverages Selenium for UI and API testing, along with JUnit for test management. 
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
