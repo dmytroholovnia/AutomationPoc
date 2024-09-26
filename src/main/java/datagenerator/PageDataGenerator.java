@@ -7,7 +7,7 @@ import dto.createpage.PageCustomizationRequestDto;
 import java.util.UUID;
 
 import static utils.Constants.COMPANY_NAME;
-import static utils.Currency.USD;
+import static enums.Currency.USD;
 
 public class PageDataGenerator extends BaseGenerator {
 

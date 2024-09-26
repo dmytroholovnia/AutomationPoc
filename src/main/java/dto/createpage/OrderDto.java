@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import utils.Currency;
+import enums.Currency;
 
 import java.util.UUID;
 
@@ -22,4 +22,5 @@ public class OrderDto {
     private Currency currency;
     @JsonProperty("order_description")
     private String orderDescription;
+    private String status;
 }

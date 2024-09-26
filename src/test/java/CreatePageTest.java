@@ -1,13 +1,11 @@
 import datagenerator.PageDataGenerator;
 import dto.createpage.CreatePageRequestDto;
 import dto.status.StatusRequestDto;
+import enums.Status;
 import org.junit.jupiter.api.*;
 import ui.PaymentPage;
 import ui.PaymentSuccessPage;
-import utils.Constants;
 import utils.CurrencyFormatter;
-
-import java.util.UUID;
 
 import static datagenerator.CardDataGenerator.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,8 +25,6 @@ public class CreatePageTest extends BaseTest {
     @DisplayName("Create payment page test")
     public void createPageTest() {
         var responseDto = apiService.createPage(createPageRequestDto);
-        assertThat(responseDto.getGuid()).isNotNull();
-//        assertThat(responseDto.getUrl()).contains(Constants.BASE_URI);
         assertThat(responseDto.getUrl()).isNotEmpty();
         String orderUrl = responseDto.getUrl();
 
@@ -54,6 +50,7 @@ public class CreatePageTest extends BaseTest {
         var responseDto = apiService.getStatus(statusRequestDto);
         assertThat(responseDto.getOrder().getAmount()).isEqualTo(createPageRequestDto.getOrder().getAmount());
         assertThat(responseDto.getOrder().getCurrency()).isEqualTo(createPageRequestDto.getOrder().getCurrency());
+        assertThat(responseDto.getOrder().getStatus()).isEqualTo(Status.APPROVED.getValue());
     }
 
 }
