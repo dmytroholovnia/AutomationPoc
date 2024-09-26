@@ -1,12 +1,13 @@
 import dto.createpage.CreatePageRequestDto;
 import dto.createpage.CreatePageResponseDto;
-import dto.createpage.OrderDto;
 import dto.status.StatusRequestDto;
+import dto.status.StatusResponseDto;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
 import lombok.NoArgsConstructor;
+import utils.JsonUtils;
 
 import static utils.Constants.*;
 
@@ -19,19 +20,6 @@ public class ApiService {
     public CreatePageResponseDto createPage(CreatePageRequestDto dto) {
         return getSpecification(dto)
                 .basePath(INIT_PATH)
-                    .log().all()
-                .when()
-                    .post()
-                .then()
-                    .log().all()
-                    .statusCode(200)
-                    .extract()
-                .as(CreatePageResponseDto.class);
-    }
-
-    public OrderDto getStatus(StatusRequestDto requestDto) {
-        return getSpecification(requestDto)
-                .basePath(STATUS)
                 .log().all()
                 .when()
                 .post()
@@ -39,7 +27,21 @@ public class ApiService {
                 .log().all()
                 .statusCode(200)
                 .extract()
-                .as(OrderDto.class);
+                .as(CreatePageResponseDto.class);
+    }
+
+    public StatusResponseDto getStatus(StatusRequestDto requestDto) {
+        return getSpecification(requestDto)
+                .baseUri("https://pay.solidgate.com/api/v1/status")
+//                .basePath(STATUS)
+                .log().all()
+                .when()
+                .post()
+                .then()
+                .log().all()
+                .statusCode(200)
+                .extract()
+                .as(StatusResponseDto.class);
     }
 
     public RequestSpecification getSpecification(Object object) {
@@ -55,5 +57,16 @@ public class ApiService {
                 .contentType(ContentType.JSON)
                 .body(JsonUtils.toJson(object));
     }
+
+//    public ResponseSpecification getResponseSpecification() {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//
+//        return RestAssured
+//                .with()
+//                .config(RestAssured.config()
+//                        .objectMapperConfig(ObjectMapperConfig.objectMapperConfig()
+//                                .defaultObjectMapper()));
+//    }
 
 }

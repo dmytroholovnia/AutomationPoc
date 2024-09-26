@@ -1,19 +1,19 @@
 import datagenerator.PageDataGenerator;
 import dto.createpage.CreatePageRequestDto;
 import dto.status.StatusRequestDto;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ui.PaymentPage;
+import utils.Constants;
 
 import java.util.UUID;
 
+import static datagenerator.CardDataGenerator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CreatePageTest extends BaseTest {
 
     private static CreatePageRequestDto createPageRequestDto;
-    private PaymentPage paymentPage;
 
     @BeforeAll
     public static void setupData() {
@@ -21,31 +21,33 @@ public class CreatePageTest extends BaseTest {
     }
 
     @Test
+    @Order(1)
     @DisplayName("Create payment page test")
     public void createPageTest() {
         var responseDto = apiService.createPage(createPageRequestDto);
-//        assertThat(responseDto.getGuid()).isEqualTo(createPageRequestDto.getOrder().getOrderId());
+        assertThat(responseDto.getGuid()).isNotNull();
+//        assertThat(responseDto.getUrl()).contains(Constants.BASE_URI);
+        assertThat(responseDto.getUrl()).isNotEmpty();
         String orderUrl = responseDto.getUrl();
-//        driver.get(orderUrl);
-        paymentPage = new PaymentPage(driver);
 
-        paymentPage
+        new PaymentPage(driver)
                 .open(orderUrl)
-                .enterCardNumber("4067429974719265")
-                .enterExpiryDate("12/34")
-                .enterCvv("123")
-                .enterEmail("example1@test.com");
+                .enterCardNumber(getTestCardNumber())
+                .enterExpiryDate(generateExpiryDate())
+                .enterCvv(generateCvv())
+                .enterEmail(generateEmail())
+                .submit();
         System.out.println("test");
     }
 
     @Test
+    @Order(2)
     @DisplayName("Get order status test")
     public void getStatusTest() {
-        //TODO get order status
-        StatusRequestDto statusRequestDto = new StatusRequestDto(UUID.randomUUID());
+        StatusRequestDto statusRequestDto = new StatusRequestDto(createPageRequestDto.getOrder().getOrderId());
         var responseDto = apiService.getStatus(statusRequestDto);
-        assertThat(responseDto.getAmount()).isEqualTo(createPageRequestDto.getOrder().getAmount());
-        assertThat(responseDto.getCurrency()).isEqualTo(createPageRequestDto.getOrder().getCurrency());
+        assertThat(responseDto.getOrder().getAmount()).isEqualTo(createPageRequestDto.getOrder().getAmount());
+        assertThat(responseDto.getOrder().getCurrency()).isEqualTo(createPageRequestDto.getOrder().getCurrency());
     }
 
 }

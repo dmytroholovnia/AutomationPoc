@@ -1,5 +1,6 @@
 package ui;
 
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,25 +10,26 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+@Getter
 public class PaymentPage {
 
-    @FindBy(xpath = "//*[@data-testid='card']")
+    @FindBy(id = "ccnumber")
     private WebElement cardInput;
 
-    @FindBy(xpath = "//*[@data-testid='cardExpiryDate']")
+    @FindBy(xpath = "//input[@data-testid='cardExpiryDate']")
     private WebElement expiryDateInput;
 
-    @FindBy(xpath = "//*[@data-testid='cardCvv']")
+    @FindBy(id = "cvv2")
     private WebElement cvvInput;
 
-    @FindBy(xpath = "//*[@data-testid='charity-email']")
+    @FindBy(xpath = "//input[@name='email']")
     private WebElement emailInput;
 
     @FindBy(xpath = "//*[@data-testid='submit']")
     private WebElement submitButton;
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 
     public PaymentPage(WebDriver driver) {
         this.driver = driver;
