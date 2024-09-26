@@ -9,8 +9,6 @@ The framework is designed to facilitate automated testing of web applications.
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Prerequisites
 - Java 17
@@ -24,6 +22,6 @@ The framework is designed to facilitate automated testing of web applications.
    mvn install
 
 ## Usage
-Run 
+1. Run 
     ```bash
     mvn test
