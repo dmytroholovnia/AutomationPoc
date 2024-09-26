@@ -3,7 +3,9 @@ import dto.createpage.CreatePageRequestDto;
 import dto.status.StatusRequestDto;
 import org.junit.jupiter.api.*;
 import ui.PaymentPage;
+import ui.PaymentSuccessPage;
 import utils.Constants;
+import utils.CurrencyFormatter;
 
 import java.util.UUID;
 
@@ -30,14 +32,18 @@ public class CreatePageTest extends BaseTest {
         assertThat(responseDto.getUrl()).isNotEmpty();
         String orderUrl = responseDto.getUrl();
 
-        new PaymentPage(driver)
+        PaymentSuccessPage paymentSuccessPage = new PaymentPage(driver)
                 .open(orderUrl)
                 .enterCardNumber(getTestCardNumber())
                 .enterExpiryDate(generateExpiryDate())
                 .enterCvv(generateCvv())
                 .enterEmail(generateEmail())
                 .submit();
-        System.out.println("test");
+        assertThat(paymentSuccessPage.getStatusTitle().isDisplayed()).isTrue();
+
+        var expectedPrice = CurrencyFormatter.formatCurrencyToUi(createPageRequestDto);
+        assertThat(paymentSuccessPage.getOrderPrice().getText())
+                .isEqualTo(expectedPrice);
     }
 
     @Test

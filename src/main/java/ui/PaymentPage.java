@@ -4,14 +4,11 @@ import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 @Getter
-public class PaymentPage {
+public class PaymentPage extends BasePage {
 
     @FindBy(id = "ccnumber")
     private WebElement cardInput;
@@ -28,18 +25,13 @@ public class PaymentPage {
     @FindBy(xpath = "//*[@data-testid='submit']")
     private WebElement submitButton;
 
-    private final WebDriver driver;
-    private final WebDriverWait wait;
-
     public PaymentPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public PaymentPage open(String url) {
         driver.get(url);
-        wait.until(ExpectedConditions.visibilityOf(submitButton));
+        wait.until(visibilityOf(submitButton));
         return this;
     }
 
@@ -63,8 +55,9 @@ public class PaymentPage {
         return this;
     }
 
-    public void submit() {
+    public PaymentSuccessPage submit() {
         submitButton.click();
+        return new PaymentSuccessPage(driver);
     }
 
 }

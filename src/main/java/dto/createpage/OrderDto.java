@@ -18,7 +18,7 @@ import java.util.UUID;
 public class OrderDto {
     @JsonProperty("order_id")
     private UUID orderId;
-    private Integer amount;
+    private Double amount;
     private Currency currency;
     @JsonProperty("order_description")
     private String orderDescription;

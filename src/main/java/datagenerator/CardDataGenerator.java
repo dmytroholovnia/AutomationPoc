@@ -1,13 +1,9 @@
 package datagenerator;
 
-import com.github.javafaker.Faker;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class CardDataGenerator {
-
-    private static final Faker faker = new Faker();
+public class CardDataGenerator extends BaseGenerator{
 
     public static String getTestCardNumber() {
         return "4067429974719265";
