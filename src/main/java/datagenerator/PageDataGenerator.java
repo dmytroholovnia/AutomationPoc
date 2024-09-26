@@ -7,7 +7,7 @@ import dto.createpage.PageCustomizationRequestDto;
 import java.util.UUID;
 
 import static utils.Constants.COMPANY_NAME;
-import static utils.Currency.EUR;
+import static utils.Currency.USD;
 
 public class PageDataGenerator extends BaseGenerator {
 
@@ -16,7 +16,7 @@ public class PageDataGenerator extends BaseGenerator {
                 .order(OrderDto.builder()
                         .orderId(UUID.randomUUID())
                         .amount((double) faker.number().numberBetween(100, 9999))
-                        .currency(EUR)
+                        .currency(USD)
                         .orderDescription(faker.book().title())
                         .build())
                 .pageCustomization(PageCustomizationRequestDto.builder()
