@@ -1,3 +1,5 @@
+package core;
+
 import dto.createpage.CreatePageRequestDto;
 import dto.createpage.CreatePageResponseDto;
 import dto.status.StatusRequestDto;
@@ -9,7 +11,7 @@ import io.restassured.specification.RequestSpecification;
 import lombok.NoArgsConstructor;
 import utils.JsonUtils;
 
-import static utils.Constants.*;
+import static datagenerator.Constants.*;
 
 @NoArgsConstructor
 public class ApiService {

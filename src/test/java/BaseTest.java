@@ -1,29 +1,22 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
+import core.ApiService;
+import core.CoreDriver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class BaseTest {
 
     protected ApiService apiService;
-    protected WebDriver driver;
-
-    @BeforeEach
-    public void setupDriver() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
+    protected CoreDriver coreDriver;
 
     @BeforeEach
     public void setup() {
         apiService = new ApiService();
+        coreDriver = new CoreDriver();
     }
 
     @AfterEach
     public void tearDown() {
-        driver.quit();
+        coreDriver.tearDown();
     }
 
 }

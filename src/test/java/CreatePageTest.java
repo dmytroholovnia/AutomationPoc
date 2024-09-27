@@ -28,7 +28,7 @@ public class CreatePageTest extends BaseTest {
         assertThat(responseDto.getUrl()).isNotEmpty();
         String orderUrl = responseDto.getUrl();
 
-        PaymentSuccessPage paymentSuccessPage = new PaymentPage(driver)
+        PaymentSuccessPage paymentSuccessPage = new PaymentPage(coreDriver.getDriver())
                 .open(orderUrl)
                 .enterCardNumber(getTestCardNumber())
                 .enterExpiryDate(generateExpiryDate())
